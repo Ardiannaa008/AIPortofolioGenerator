@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Portfolio Generator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- MAIN APP CONTAINER -->
+    <div class="container">
+
+        <!-- Landing Page -->
+        <section id="landingPage" class="landing-page">
+            <div class="landing-content">
+                <h1>GitHub Portfolio Generator</h1>
+                <p>Transform your GitHub profile into a stunning portfolio website in seconds</p>
+
+                <div class="input-group">
+                    <input
+                        type="text"
+                        id="githubUsername"
+                        placeholder="Enter your GitHub username"
+                        class="username-input"
+                    >
+                    <button id="generateBtn" class="generate-btn">Generate Portfolio</button>
+                </div>
+
+                <div class="info-text">
+                    <p>👉 No backend needed • Data fetched directly from GitHub API</p>
+                </div>
+
+                <div class="templates-section">
+                    <h3>Choose a Template:</h3>
+                    <div class="template-options">
+                        <label class="template-option">
+                            <input type="radio" name="template" value="minimal" checked>
+                            <span>Minimal</span>
+                        </label>
+                        <label class="template-option">
+                            <input type="radio" name="template" value="dark">
+                            <span>Dark</span>
+                        </label>
+                        <label class="template-option">
+                            <input type="radio" name="template" value="colorful">
+                            <span>Colorful</span>
+                        </label>
+                        <label class="template-option">
+                            <input type="radio" name="template" value="tech">
+                            <span>Tech</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PORTFOLIO BUILDER (EDITOR MODE) -->
+        <section id="portfolioPage" class="portfolio-page hidden">
+
+            <!-- TOP BAR -->
+            <div class="portfolio-header">
+                <button id="backBtn" class="back-btn">← Back</button>
+                <div class="portfolio-controls">
+                    <button id="previewBtn" class="preview-btn">👁️ Preview</button>
+                    <button id="exportBtn" class="export-btn">📥 Export</button>
+                    <button id="shareBtn" class="share-btn">🔗 Share</button>
+                </div>
+            </div>
+
+            <!-- EDITOR LAYOUT -->
+            <div class="editor-layout">
+
+                <!-- PORTFOLIO CONTENT (THIS IS WHAT WE EXPORT) -->
+                <main class="editor-main">
+                    <div id="portfolioContainer" class="portfolio-container">
+
+                        <!-- Hero Section -->
+                        <section id="heroSection" class="section hero-section">
+                            <div class="hero-content">
+                                <img id="avatarImg" src="" alt="Avatar" class="avatar">
+                                <h1 id="profileName"></h1>
+                                <p id="profileBio" class="bio"></p>
+                                <a id="githubLink" href="" target="_blank" class="github-link">
+                                    View on GitHub
+                                </a>
+                            </div>
+                        </section>
+
+                        <!-- About Section -->
+                        <section id="aboutSection" class="section about-section">
+                            <h2>About</h2>
+                            <div class="about-content">
+                                <div class="about-bio" id="aboutBio"></div>
+                                <div class="about-info">
+                                    <div class="info-item">
+                                        <span class="label">Location</span>
+                                        <span id="locationInfo" class="value">-</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="label">Company</span>
+                                        <span id="companyInfo" class="value">-</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="label">Website</span>
+                                        <span id="websiteInfo" class="value">-</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Stats Section -->
+                        <section id="statsSection" class="section stats-section">
+                            <h2>Stats</h2>
+                            <div class="stats-grid">
+                                <div class="stat-card">
+                                    <span class="stat-label">Public Repos</span>
+                                    <span id="repoCount" class="stat-value">0</span>
+                                </div>
+                                <div class="stat-card">
+                                    <span class="stat-label">Followers</span>
+                                    <span id="followerCount" class="stat-value">0</span>
+                                </div>
+                                <div class="stat-card">
+                                    <span class="stat-label">Following</span>
+                                    <span id="followingCount" class="stat-value">0</span>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Skills Section -->
+                        <section id="skillsSection" class="section skills-section">
+                            <h2>Skills</h2>
+                            <div id="skillsList" class="skills-list"></div>
+                        </section>
+
+                        <!-- Projects Section -->
+                        <section id="projectsSection" class="section projects-section">
+                            <h2>Featured Projects</h2>
+                            <div id="projectsList" class="projects-list"></div>
+                        </section>
+
+                        <!-- Contact Section -->
+                        <section id="contactSection" class="section contact-section">
+                            <h2>Get In Touch</h2>
+                            <p>Check out my work and connect with me on GitHub</p>
+                            <a id="contactLink" href="" target="_blank" class="contact-btn">
+                                Visit GitHub Profile
+                            </a>
+                        </section>
+
+                    </div>
+                </main>
+
+                <!-- SIDEBAR (EDITOR ONLY) -->
+                <aside id="customizationPanel" class="customization-panel">
+                    <h3>Customize</h3>
+
+                    <div class="customization-group">
+                        <label>Color Theme:</label>
+                        <select id="themeSelect" class="theme-select">
+                            <option value="minimal">Minimal</option>
+                            <option value="dark">Dark</option>
+                            <option value="colorful">Colorful</option>
+                            <option value="tech">Tech</option>
+                        </select>
+                    </div>
+
+                    <div class="customization-group">
+                        <label>Sections to Show:</label>
+                        <div class="section-toggles">
+                            <label class="toggle-label">
+                                <input type="checkbox" class="section-toggle" value="aboutSection" checked>
+                                About
+                            </label>
+                            <label class="toggle-label">
+                                <input type="checkbox" class="section-toggle" value="statsSection" checked>
+                                Stats
+                            </label>
+                            <label class="toggle-label">
+                                <input type="checkbox" class="section-toggle" value="skillsSection" checked>
+                                Skills
+                            </label>
+                            <label class="toggle-label">
+                                <input type="checkbox" class="section-toggle" value="projectsSection" checked>
+                                Projects
+                            </label>
+                            <label class="toggle-label">
+                                <input type="checkbox" class="section-toggle" value="contactSection" checked>
+                                Contact
+                            </label>
+                        </div>
+                    </div>
+                </aside>
+
+            </div>
+        </section>
+
+        <!-- Loading Spinner -->
+        <div id="loadingSpinner" class="loading-spinner hidden">
+            <div class="spinner"></div>
+            <p>Generating your portfolio...</p>
+        </div>
+
+        <!-- Error Message -->
+        <div id="errorMessage" class="error-message hidden"></div>
+
+        <!-- Share Modal -->
+        <div id="shareModal" class="modal hidden">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Share Your Portfolio</h2>
+                <p>Copy this link to share your portfolio:</p>
+                <input type="text" id="shareLink" class="share-link-input" readonly>
+                <button id="copyLinkBtn" class="copy-btn">Copy Link</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
