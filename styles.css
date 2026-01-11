@@ -50,11 +50,7 @@ body {
 .landing-content {
     text-align: center;
     color: white;
-    max-width: 600px;
-    background: rgba(0,0,0,0.36);
-    padding: 28px 30px;
-    border-radius: 12px;
-    box-shadow: 0 12px 30px rgba(2,6,23,0.35);
+   
 }
 
 .landing-content h1 {
