@@ -6,16 +6,17 @@
 }
 
 :root {
-    --primary: #0366d6;
+    --primary: #0b63d1; /* stronger blue */
     --secondary: #6f42c1;
-    --text: #24292e;
-    --text-light: #666;
-    --border: #e1e4e8;
+    --text: #0f1720; /* darker text for contrast */
+    --text-light: #374151; /* readable secondary text */
+    --border: #d1d5db;
     --bg: #ffffff;
-    --bg-light: #f6f8fa;
-    --accent: #28a745;
-    
-    --transition: all 0.3s ease;
+    --bg-light: #f8fafc;
+    --accent: #0f9d58; /* greener accent with good contrast */
+    --muted: #6b7280;
+
+    --transition: all 0.2s ease;
 }
 
 body {
@@ -23,6 +24,12 @@ body {
     color: var(--text);
     background: var(--bg);
     line-height: 1.6;
+}
+
+/* Accessible focus outlines for keyboard users */
+:focus-visible {
+    outline: 3px solid color-mix(in srgb, var(--accent) 75%, transparent);
+    outline-offset: 2px;
 }
 
 .container {
@@ -44,6 +51,10 @@ body {
     text-align: center;
     color: white;
     max-width: 600px;
+    background: rgba(0,0,0,0.36);
+    padding: 28px 30px;
+    border-radius: 12px;
+    box-shadow: 0 12px 30px rgba(2,6,23,0.35);
 }
 
 .landing-content h1 {
@@ -74,24 +85,25 @@ body {
     border: none;
     border-radius: 8px;
     font-size: 1rem;
-    background: rgba(255, 255, 255, 0.95);
+    background: #ffffff;
     color: var(--text);
     transition: var(--transition);
+    border: 1px solid var(--border);
 }
 
 .username-input:focus {
     outline: none;
-    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 0 4px rgba(15,157,88,0.18);
     transform: translateY(-2px);
 }
 
 .username-input::placeholder {
-    color: #999;
+    color: var(--muted);
 }
 
 .generate-btn {
     padding: 15px 35px;
-    background: #28a745;
+    background: var(--accent);
     color: white;
     border: none;
     border-radius: 8px;
@@ -99,17 +111,23 @@ body {
     font-weight: 600;
     cursor: pointer;
     transition: var(--transition);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.18);
 }
 
 .generate-btn:hover {
-    background: #218838;
+    background: color-mix(in srgb, var(--accent) 78%, black 10%);
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.28);
 }
 
 .generate-btn:active {
     transform: translateY(0);
+}
+
+/* Explicit focus styles for interactive elements (fallback for older browsers) */
+button:focus, a:focus, input:focus, textarea:focus, select:focus {
+    outline: 3px solid rgba(15,157,88,0.18);
+    outline-offset: 2px;
 }
 
 .info-text {
@@ -141,13 +159,15 @@ body {
     gap: 8px;
     cursor: pointer;
     padding: 10px 15px;
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid var(--border);
     border-radius: 6px;
     transition: var(--transition);
 }
 
 .template-option:hover {
-    background: rgba(255, 255, 255, 0.25);
+    background: #ffffff;
+    box-shadow: 0 6px 18px rgba(2,6,23,0.06);
 }
 
 .template-option input[type="radio"] {
@@ -354,7 +374,7 @@ body.editor-mode .portfolio-container {
 .about-bio {
     font-size: 1.1rem;
     line-height: 1.9;
-    color: var(--text-light);
+    color: var(--text);
     background: white;
     padding: 25px;
     border-radius: 8px;
@@ -913,6 +933,36 @@ body.theme-dark .project-card {
 
 body.theme-dark .stat-card {
     background: linear-gradient(135deg, #238636, #1f6feb);
+}
+
+/* Improve visibility for header/back button and customization panel in dark theme */
+body.theme-dark .back-btn {
+    color: var(--text);
+    border-color: var(--border);
+    background: transparent;
+}
+
+body.theme-dark .back-btn:hover {
+    background: var(--bg);
+    color: var(--text);
+    border-color: var(--primary);
+}
+
+body.theme-dark .customization-panel {
+    background: var(--bg-light);
+    color: var(--text);
+    border-left-color: var(--primary);
+    border-top-color: var(--primary);
+    box-shadow: -5px -5px 40px rgba(0, 0, 0, 0.6);
+}
+
+body.theme-dark .customization-panel .theme-select,
+body.theme-dark .customization-panel input,
+body.theme-dark .customization-panel select,
+body.theme-dark .customization-panel textarea {
+    background: var(--bg);
+    color: var(--text);
+    border-color: var(--border);
 }
 
 /* Colorful Theme */

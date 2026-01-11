@@ -110,6 +110,50 @@ async function fetchGitHubData(username) {
         if (!reposResponse.ok) throw new Error('Failed to fetch repositories');
         const repos = await reposResponse.json();
 
+        // Enrich repos with contribution data
+        const reposWithContributions = await Promise.all(
+            repos.map(async (repo) => {
+                try {
+                    const commitsResponse = await fetch(
+                        `${GITHUB_API_BASE}/repos/${repo.owner.login}/${repo.name}/commits?author=${username}&per_page=1`,
+                        {
+                            headers: {
+                                'Accept': 'application/vnd.github.v3+json'
+                            }
+                        }
+                    );
+
+                    if (!commitsResponse.ok) return { ...repo, contributionCount: 0 };
+
+                    const linkHeader = commitsResponse.headers.get('link');
+                    let contributionCount = 1;
+
+                    // Extract total commits from Link header
+                    if (linkHeader) {
+                        const match = linkHeader.match(/page=(\d+)>; rel="last"/);
+                        if (match) {
+                            contributionCount = parseInt(match[1], 10);
+                        }
+                    }
+
+                    return { ...repo, contributionCount };
+                } catch {
+                    return { ...repo, contributionCount: 0 };
+                }
+            })
+        );
+
+        // Sort by contribution count
+        reposWithContributions.sort(
+            (a, b) => b.contributionCount - a.contributionCount
+        );
+
+        return {
+            user,
+            repos: reposWithContributions
+        };
+
+
         return {
             user,
             repos: repos.sort((a, b) => (b.stargazers_count || 0) - (a.stargazers_count || 0))
@@ -186,9 +230,14 @@ function createProjectCard(repo) {
         </div>
         <p class="project-description">${repo.description || 'No description provided'}</p>
         <div class="project-meta">
-            ${repo.language ? `<div class="project-language"><span class="language-dot" style="background-color: ${languageColor}"></span>${repo.language}</div>` : ''}
-            ${repo.created_at ? `<span>Created: ${new Date(repo.created_at).getFullYear()}</span>` : ''}
-        </div>
+        ${repo.language ? `
+            <div class="project-language">
+                <span class="language-dot" style="background-color: ${languageColor}"></span>
+                ${repo.language}
+            </div>` : ''}
+        <span>🧠 Contributions: ${repo.contributionCount}</span>
+    </div>
+
     `;
     
     return card;
