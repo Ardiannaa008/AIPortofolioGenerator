@@ -994,7 +994,7 @@ body.theme-tech {
     --bg: #0a0e27;
     --bg-light: #1a1f3a;
     --text: #e0f7ff;
-    --text-light: #a3d5ff;
+    --text-light: #244b57a9;
     --border: #00d9ff;
 }
 
@@ -1009,6 +1009,70 @@ body.theme-tech .skill-tag {
     color: #00d9ff;
     text-shadow: 0 0 10px #00d9ff;
 }
+
+/* Ensure consistent readable text across theme variations */
+body.theme-dark .portfolio-page,
+body.theme-tech .portfolio-page,
+body.theme-colorful .portfolio-page,
+body[class*="theme-"] .portfolio-container {
+    color: var(--text);
+}
+
+body.theme-tech .back-btn,
+body.theme-colorful .back-btn {
+    color: var(--text);
+    border-color: var(--border);
+    background: transparent;
+}
+
+body.theme-tech .back-btn:hover,
+body.theme-colorful .back-btn:hover {
+    background: var(--bg);
+    color: var(--text);
+    border-color: var(--primary);
+}
+
+body.theme-tech .customization-panel,
+body.theme-colorful .customization-panel,
+body.theme-dark .customization-panel {
+    background: var(--bg-light);
+    color: var(--text);
+    border-left-color: var(--primary);
+    border-top-color: var(--primary);
+}
+
+body.theme-tech .customization-panel .theme-select,
+body.theme-colorful .customization-panel .theme-select,
+body.theme-dark .customization-panel .theme-select,
+body.theme-tech .customization-panel input,
+body.theme-colorful .customization-panel input,
+body.theme-dark .customization-panel input,
+body.theme-tech .customization-panel textarea,
+body.theme-colorful .customization-panel textarea,
+body.theme-dark .customization-panel textarea,
+body.theme-tech .customization-panel select,
+body.theme-colorful .customization-panel select,
+body.theme-dark .customization-panel select {
+    background: var(--bg);
+    color: var(--text);
+    border-color: var(--border);
+}
+
+/* Make section headings and card labels readable in all themes */
+body[class*="theme-"] .section h2,
+body[class*="theme-"] .info-item .label,
+body[class*="theme-"] .about-bio,
+body[class*="theme-"] .hero-section h1 {
+    color: var(--text);
+}
+
+/* Ensure buttons inside portfolio header are visible */
+body[class*="theme-"] .portfolio-header .back-btn,
+body[class*="theme-"] .portfolio-header button {
+    color: var(--text);
+    border-color: var(--border);
+}
+
 
 body.theme-tech .skill-tag:hover {
     background: rgba(0, 217, 255, 0.1);
