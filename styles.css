@@ -1224,6 +1224,31 @@ body.theme-tech .skill-tag:hover {
     .contact-section {
         padding: 40px 25px;
     }
+    /* Ensure editor layout doesn't leave space for the sidebar on small screens */
+    body.editor-mode .portfolio-container {
+        margin-right: 0;
+    }
+
+    /* Make primary actions and header controls touch-friendly and stack nicely */
+    .generate-btn,
+    .github-link,
+    .contact-btn,
+    .export-btn,
+    .share-btn,
+    .preview-btn {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .portfolio-controls {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .portfolio-controls button {
+        flex: 1 1 auto;
+        min-width: 0;
+    }
 }
 
 @media (max-width: 480px) {
