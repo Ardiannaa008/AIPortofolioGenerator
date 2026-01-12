@@ -172,6 +172,7 @@ button:focus, a:focus, input:focus, textarea:focus, select:focus {
 
 .template-option span {
     font-weight: 500;
+    color: var(--text); 
 }
 
 /* ========== PORTFOLIO PAGE ========== */
